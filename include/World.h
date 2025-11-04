@@ -20,7 +20,7 @@ public:
 
 private:
     int width, height, depth;
-    std::vector<Block*> world; // heap-backed flattened 3D array
+    std::vector<Block*> world;
 };
 
 

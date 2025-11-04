@@ -13,9 +13,9 @@ void World::render(const AssetManager& assets) {
                 Block* block = at(x, y, z);
                 if (block != nullptr) {
                     Vector3 position = {
-                        static_cast<float>(x),
-                        static_cast<float>(y),
-                        static_cast<float>(z)
+                        static_cast<float>(x) * 0.6f,
+                        static_cast<float>(y) * 0.6f,
+                        static_cast<float>(z) * 0.6f
                     };
                     DrawModelEx(
                         block->getModel(),
