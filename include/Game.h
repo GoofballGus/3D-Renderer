@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <GLFW/glfw3.h>
+#include <iomanip>
 
 class Game {
 public:
@@ -22,8 +23,8 @@ private:
     void debugRender() const;
 
     AssetManager assets;
-    Player player{Vector3(0, 2, 5)};
-    World world{1, 1, 1};
+    Player player;
+    World world{3, 1, 3};
     Shader shader;
     Mesh mesh;
     Model model;

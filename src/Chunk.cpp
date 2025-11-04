@@ -41,8 +41,8 @@ Chunk::Chunk(Mesh* mesh, Model* model, const Vector3 pos, const Textures& textur
                 // TraceLog(LOG_INFO, "[DEBUG] Made blockPos");
                 __int16 id = (y < CHUNK_HEIGHT / 2) ? textures.getBlockIdFromName("stone") : textures.getBlockIdFromName("dirt");
                 // TraceLog(LOG_INFO, "[DEBUG] Set block id");
-                // blocks[x][y][z] = Block(id, blockPos);  // TODO(): Remove comment after testing
-                blocks[x][y][z]  = Block(1, blockPos);  // TODO(): Remove after testing
+                // blocks[x][y][z] = Block(id, blockPos);  // TODO: Remove comment after testing
+                blocks[x][y][z]  = Block(1, blockPos);  // TODO: Remove after testing
                 // TraceLog(LOG_INFO, "[DEBUG] Set block at (%d, %d, %d) to id %d", x, y, z, id);
             }
         }

@@ -6,35 +6,41 @@
 #include "World.h"
 #include <algorithm>
 #include <string>
+#include "Configs.h"
 
 
 class Player {
 public:
+    Player();
     explicit Player(Vector3 pos);
     void update(float deltaTime, const World& world);
 
     Camera3D* getCamera();
     void renderHands();
-    void showTest();
 
     float verticalVelocity = 0.0f;
-    Vector2 horizontalVelocity{}; // persistent horizontal velocity
+    Vector2 horizontalVelocity{};
+    float MAX_HORIZONTAL_VELOCITY;
+    float MIN_HORIZONTAL_VELOCITY;
 
-    const float GRAVITY = -3.8f;
-    const float JUMP_FORCE = 10.0f;
-    const float ACCELERATION = 10.0f; // adjust to taste
-    const float FRICTION = 0.85f;     // adjust for how slippery ground is
+    float GRAVITY;
+    float JUMP_FORCE;
+    float ACCELERATION;
+    float FRICTION;
+    float SPRINT_SPEED;
+    float NORMAL_SPEED;
 
     bool grounded = false;
 
-    float sensitivity = 0.2f;
+    float sensitivity;
 
     Vector3 position{};
 
     float FOV;
     Camera3D camera{};
+private:
+    YAML::Node config;
 };
-
 
 
 #endif //PLAYER_H

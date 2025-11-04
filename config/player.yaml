@@ -1,0 +1,13 @@
+jump_force: 3
+acceleration: 7
+
+sensitivity: 0.1
+
+gravity: -9
+friction: 0.85
+
+max_horizontal_velocity: 0.7
+min_horizontal_velocity: 0.3
+
+normal_speed: 7
+sprint_speed: 10

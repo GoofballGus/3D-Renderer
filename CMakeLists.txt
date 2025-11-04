@@ -3,7 +3,6 @@ project(3DRenderer)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Use FetchContent to grab raylib
 include(FetchContent)
 
 FetchContent_Declare(
@@ -11,8 +10,14 @@ FetchContent_Declare(
         URL https://github.com/raysan5/raylib/archive/refs/tags/5.0.tar.gz
 )
 
-# Make raylib available
+FetchContent_Declare(
+        yaml-cpp
+        GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+        GIT_TAG master
+)
+
 FetchContent_MakeAvailable(raylib)
+FetchContent_MakeAvailable(yaml-cpp)
 
 add_executable(3DRenderer
         main.cpp
@@ -27,10 +32,13 @@ add_executable(3DRenderer
         include/World.h
         src/Block.cpp
         include/Block.h
+        src/Configs.cpp
+        include/Configs.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         raylib
+        yaml-cpp::yaml-cpp
         opengl32
         gdi32
         winmm

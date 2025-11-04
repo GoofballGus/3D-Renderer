@@ -1,18 +1,32 @@
 #include "../include/Player.h"
 
 
-Player::Player(Vector3 pos) {
+Player::Player() {}
+
+Player::Player(const Vector3 pos) {
     position = pos;
     FOV = 60.0f;
 
-    Camera playerCamera = {};
-    playerCamera.position = position;
-    playerCamera.target = Vector3{ 0.0f, 0.0f, 0.0f };
-    playerCamera.up = Vector3{ 0.0f, 1.0f, 0.0f };
-    playerCamera.fovy = FOV;
-    playerCamera.projection = CAMERA_PERSPECTIVE;
+    camera.position = position;
+    camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
+    camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
+    camera.fovy = FOV;
+    camera.projection = CAMERA_PERSPECTIVE;
 
-    camera = playerCamera;
+    config = Configs::PLAYER;
+
+    GRAVITY = config["gravity"].as<float>();
+    JUMP_FORCE = config["jump_force"].as<float>();
+    ACCELERATION = config["acceleration"].as<float>();
+    FRICTION = config["friction"].as<float>();
+
+    sensitivity = config["sensitivity"].as<float>();
+
+    MAX_HORIZONTAL_VELOCITY = config["max_horizontal_velocity"].as<float>();
+    MIN_HORIZONTAL_VELOCITY = config["min_horizontal_velocity"].as<float>() * -1.0f;
+
+    SPRINT_SPEED = config["sprint_speed"].as<float>();
+    NORMAL_SPEED = config["normal_speed"].as<float>();
 }
 
 Camera3D* Player::getCamera() {
@@ -20,7 +34,7 @@ Camera3D* Player::getCamera() {
 }
 
 void Player::renderHands() {
-    // DrawText("PLAYER!!!", 100, 100, 10, RED);
+    // TODO: Implement hand rendering
 }
 
 void Player::update(float deltaTime, const World& world) {
@@ -33,7 +47,8 @@ void Player::update(float deltaTime, const World& world) {
     }
 
     // Speed modifier
-    float currentSpeed = IsKeyDown(KEY_LEFT_CONTROL) ? 10.0f : 5.0f;
+    float currentSpeed = IsKeyDown(KEY_LEFT_CONTROL) ? SPRINT_SPEED : NORMAL_SPEED;
+    // TODO: Make sprinting work with the config file speeds
 
     // --- INPUT ---
     Vector2 inputDir = {
@@ -51,8 +66,8 @@ void Player::update(float deltaTime, const World& world) {
     horizontalVelocity.y += inputDir.y * ACCELERATION * deltaTime;
 
     // Clamp velocity to [-1, 1] (or whatever max you want)
-    horizontalVelocity.x = std::clamp(horizontalVelocity.x, -0.8f, 1.2f);
-    horizontalVelocity.y = std::clamp(horizontalVelocity.y, -0.8f, 1.2f);
+    horizontalVelocity.x = std::clamp(horizontalVelocity.x, MIN_HORIZONTAL_VELOCITY, MAX_HORIZONTAL_VELOCITY);
+    horizontalVelocity.y = std::clamp(horizontalVelocity.y, MIN_HORIZONTAL_VELOCITY, MAX_HORIZONTAL_VELOCITY);
 
     // Apply friction only when grounded
     if (grounded) {
@@ -61,8 +76,12 @@ void Player::update(float deltaTime, const World& world) {
     }
 
     // --- VERTICAL MOVEMENT ---
-    if (!grounded)
+    if (!grounded){
+        horizontalVelocity.x *= FRICTION;
+        horizontalVelocity.y *= FRICTION;
+
         verticalVelocity += GRAVITY * deltaTime;
+    }
 
     // Jump
     if (IsKeyPressed(KEY_SPACE) && grounded) {
@@ -89,8 +108,8 @@ void Player::update(float deltaTime, const World& world) {
     }
 
     // --- GROUND COLLISION ---
-    if (camera.position.y <= -3.0f) { // floor at Y=1
-        camera.position.y = -3.0f;
+    if (camera.position.y <= 0.5f) { // floor at Y=1
+        camera.position.y =  0.5f;
         verticalVelocity = 0.0f;
         grounded = true;
     } else {

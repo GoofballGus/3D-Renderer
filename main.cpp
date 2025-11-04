@@ -45,7 +45,7 @@ int main() {
     //
     // DisableCursor();
     // SetTargetFPS(60);
-    // // TODO(): Turn on SetExitKey(KEY_NULL) after debugging!
+    // // TODO: Turn on SetExitKey(KEY_NULL) after debugging!
     // // SetExitKey(KEY_NULL);
     //
     // while (!WindowShouldClose()) {

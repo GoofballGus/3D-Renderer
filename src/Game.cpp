@@ -1,7 +1,5 @@
 #include "../include/Game.h"
 
-#include <iomanip>
-
 
 void LogColored(int msgType, const char *text, va_list args) {
     switch (msgType)
@@ -42,8 +40,12 @@ void Game::init() {
 
     SetTraceLogCallback(LogColored);
 
+    Configs::Load();
+
     // Load textures and materials
     assets.Setup();
+
+    player = Player(Vector3{0.0f, 2.0f, 5.0f});
 
     // init world & player
     world.generateDefaultTerrain(assets);
@@ -99,6 +101,7 @@ void Game::render() {
 }
 
 void Game::debugRender() const {
+    // Player Position Info
     int positionAccuracy = 3;
     std::ostringstream playerPosX;
     playerPosX << std::fixed << "Player X: " << std::setprecision(positionAccuracy) << player.position.x;
@@ -118,6 +121,15 @@ void Game::debugRender() const {
     DrawText(std::to_string(player.horizontalVelocity.x).c_str(), 250, 30, 20, DARKGRAY);
     DrawText(std::to_string(player.horizontalVelocity.y).c_str(), 250, 50, 20, DARKGRAY);
     DrawText(std::to_string(player.verticalVelocity).c_str(), 250, 70, 20, DARKGRAY);
+
+    // General Player Info
+
+    DrawText(std::to_string(player.ACCELERATION).c_str(), 10, 100, 20, DARKGRAY);
+    DrawText(std::to_string(player.JUMP_FORCE).c_str(), 10, 120, 20, DARKGRAY);
+    DrawText(std::to_string(player.GRAVITY).c_str(), 10, 140, 20, DARKGRAY);
+    DrawText(std::to_string(player.FRICTION).c_str(), 10, 160, 20, DARKGRAY);
+    DrawText(std::to_string(player.MAX_HORIZONTAL_VELOCITY).c_str(), 10, 180, 20, DARKGRAY);
+    DrawText(std::to_string(player.MIN_HORIZONTAL_VELOCITY).c_str(), 10, 200, 20, DARKGRAY);
 }
 
 void Game::shutdown() {
