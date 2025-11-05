@@ -2,5 +2,5 @@ cmake-build-debug/
 .idea/
 *.blend*
 CMakeUserPresets.json
-./build
-./cmake-build-debug*
+/build
+/cmake-build-debug*
