@@ -3,22 +3,9 @@ project(3DRenderer)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include(FetchContent)
-
-FetchContent_Declare(
-        raylib
-        GIT_REPOSITORY https://github.com/raysan5/raylib/raylib.git
-        GIT_TAG 5.0
-)
-
-FetchContent_Declare(
-        yaml-cpp
-        GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
-        GIT_TAG master
-)
-
-FetchContent_MakeAvailable(raylib)
-FetchContent_MakeAvailable(yaml-cpp)
+find_package(fmt CONFIG REQUIRED)
+find_package(raylib REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 add_executable(3DRenderer
         main.cpp
@@ -40,6 +27,7 @@ add_executable(3DRenderer
 target_link_libraries(${PROJECT_NAME} PRIVATE
         raylib
         yaml-cpp::yaml-cpp
+        fmt::fmt
         opengl32
         gdi32
         winmm

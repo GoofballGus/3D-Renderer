@@ -7,7 +7,8 @@
 #include "unordered_map"
 #include "Block.h"
 #include <iostream>
-#include <bits/ostream.tcc>
+#include <fstream>
+#include <sstream>
 #include "../include/Block.h"
 
 
