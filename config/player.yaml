@@ -4,7 +4,8 @@ acceleration: 7
 sensitivity: 0.1
 
 gravity: -9
-friction: 0.85
+friction: 0.7
+air_friction: 0.8
 
 max_horizontal_velocity: 0.7
 min_horizontal_velocity: 0.3

@@ -19,6 +19,7 @@ Player::Player(const Vector3 pos) {
     JUMP_FORCE = config["jump_force"].as<float>();
     ACCELERATION = config["acceleration"].as<float>();
     FRICTION = config["friction"].as<float>();
+    AIR_FRICTION = config["air_friction"].as<float>();
 
     sensitivity = config["sensitivity"].as<float>();
 
@@ -77,8 +78,8 @@ void Player::update(float deltaTime, const World& world) {
 
     // --- VERTICAL MOVEMENT ---
     if (!grounded){
-        horizontalVelocity.x *= FRICTION;
-        horizontalVelocity.y *= FRICTION;
+        horizontalVelocity.x *= AIR_FRICTION;
+        horizontalVelocity.y *= AIR_FRICTION;
 
         verticalVelocity += GRAVITY * deltaTime;
     }

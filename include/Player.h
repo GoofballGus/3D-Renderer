@@ -27,6 +27,7 @@ public:
     float JUMP_FORCE;
     float ACCELERATION;
     float FRICTION;
+    float AIR_FRICTION;
     float SPRINT_SPEED;
     float NORMAL_SPEED;
 

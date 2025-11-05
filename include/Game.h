@@ -24,7 +24,7 @@ private:
 
     AssetManager assets;
     Player player;
-    World world{3, 1, 3};
+    World world{5, 1, 5};
     Shader shader;
     Mesh mesh;
     Model model;
