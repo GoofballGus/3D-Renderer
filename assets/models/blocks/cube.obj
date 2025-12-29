@@ -1,0 +1,87 @@
+# Raylib Cube Model for 3x2 texture atlas
+# Scale: 0.5 units (1x1x1 cube from -0.5 to 0.5)
+# Texture layout (3 columns x 2 rows):
+# Row 1: [empty] [Y+ up]    [empty]
+# Row 2: [X- west] [Z- north] [X+ east]
+# Row 3: [empty] [Y- down]  [empty]
+# Row 4: [empty] [Z+ south] [empty]
+o cube
+mtllib cube.mtl
+
+usemtl Material
+
+# Vertices (1x1x1 cube centered at origin)
+v 0.5 0.5 0.5
+v 0.5 0.5 -0.5
+v 0.5 -0.5 0.5
+v 0.5 -0.5 -0.5
+v -0.5 0.5 -0.5
+v -0.5 0.5 0.5
+v -0.5 -0.5 -0.5
+v -0.5 -0.5 0.5
+
+# UV coordinates for 3x2 atlas layout
+# Each cell is 1/3 wide (0.333) and 1/4 tall (0.25)
+
+# Y+ up (top face) - Middle column(u 0.333333-0.666666), first row(v 0.75-1.0) Corrected
+vt 0.333333 1.0
+vt 0.666667 1.0
+vt 0.666667 0.75
+vt 0.333333 0.75
+
+# Z- north (front face) - Left column(u 0.0-0.333333), third row(v 0.5-0.75) Corrected
+vt 0.0 0.75
+vt 0.333333 0.75
+vt 0.333333 0.5
+vt 0.0 0.5
+
+# X+ east (right face) - Middle column(u 0.333333-0.666666), third row(v 0.5-0.75) Corrected
+vt 0.333333 0.75
+vt 0.666666 0.75
+vt 0.666666 0.5
+vt 0.333333 0.5
+
+# X- west (left face) - Middle column(u 0.333333-0.666666), fourth row(v 0.0-0.25) Corrected
+vt 0.333333 0.25
+vt 0.666666 0.25
+vt 0.666666 0.0
+vt 0.333333 0.0
+
+# Y- down (bottom face) - Middle column(u 0.333333-0.666666), third row(v 0.5-0.75) Corrected
+vt 0.333333 0.5
+vt 0.666667 0.5
+vt 0.666667 0.25
+vt 0.333333 0.25
+
+# Z+ south (back face) - Right column(u 0.666666-1.0), third row(v 0.5-0.75) Corrected
+vt 0.666666 0.75
+vt 1.0 0.75
+vt 1.0 0.5
+vt 0.666666 0.5
+
+# Normals
+vn 0 0 -1
+vn 1 0 0
+vn 0 0 1
+vn -1 0 0
+vn 0 1 0
+vn 0 -1 0
+
+# Faces (vertex/uv/normal)
+# Z- north (front) - Middle column, second row
+f 4/8/1 7/7/1 5/6/1 2/5/1
+
+# X+ east (right) - Right column, second row
+f 3/12/2 4/11/2 2/10/2 1/9/2
+
+# Z+ south (back) - Middle column, fourth row
+f 8/24/3 3/23/3 1/22/3 6/21/3
+
+# X- west (left) - Left column, second row
+f 7/16/4 8/15/4 6/14/4 5/13/4
+
+# Y+ up (top) - Middle column, top row
+f 6/4/5 1/3/5 2/2/5 5/1/5
+
+# Y- down (bottom) - Middle column, third row
+f 7/20/6 4/19/6 3/18/6 8/17/6
